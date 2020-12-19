@@ -6,6 +6,7 @@ const loanRequestRouter = require('./routers/loan-request')
 const visitRouter = require('./routers/visit')
 const callRouter = require('./routers/call')
 const whatsappMessageRouter = require('./routers/whatsapp-message')
+const leadRouter = require('./routers/lead')
 
 const app = express()
 
@@ -20,5 +21,6 @@ app.use(loanRequestRouter)
 app.use(visitRouter)
 app.use(callRouter)
 app.use(whatsappMessageRouter)
+app.use(leadRouter)
 
 module.exports = app

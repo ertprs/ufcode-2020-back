@@ -8,7 +8,17 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    cpf: {
+        type: String,
+        required: true
+    },
+    cep: {
+        type: String,
     },
     email: {
         type: String,
@@ -22,9 +32,11 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    gender: {
+        type: String,
+    },
     password: {
         type: String,
-        required: true,
         minlength: 7,
         trim: true,
         validate(value) {
@@ -33,32 +45,78 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    age: {
-        type: Number,
-        default: 0,
-        validate(value) {
-            if (value < 0) {
-                throw new Error('Age must be a postive number')
-            }
-        }
+    birthday: {
+        type: mongoose.Schema.Types.Date,
+    },
+    maritalStatus: {
+        type: String,
+    },
+    motherName: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    neighborhood: {
+        type: String,
+    },
+    address: {
+        type: String,
+    },
+    complement: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    number: {
+        type: String,
+        required: true,
+    },
+    rg: {
+        type: String,
+        required: true,
+    },
+    rgOrgao: {
+        type: String,
+        required: true,
+    },
+    rgUF: {
+        type: String,
+        required: true,
+    },
+    rgData: {
+        type: String,
+        required: true,
+    },
+    bank: {
+        type: String,
+        required: true,
+    },
+    agency: {
+        type: String,
+        required: true,
+    },
+    income: {
+        type: String,
+        required: true,
+    },
+    margin: {
+        type: String,
+        required: true,
+    },
+    benefitType: {
+        type: String,
+        required: true,
     },
     tokens: [{
         token: {
             type: String,
             required: true
         }
-    }],
-    avatar: {
-        type: Buffer
-    }
+    }]
 }, {
     timestamps: true
-})
-
-userSchema.virtual('tasks', {
-    ref: 'Task',
-    localField: '_id',
-    foreignField: 'owner'
 })
 
 userSchema.methods.toJSON = function () {
