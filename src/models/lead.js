@@ -1,8 +1,5 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const Task = require('./task')
 
 const leadSchema = new mongoose.Schema({
     name: {
@@ -15,9 +12,11 @@ const leadSchema = new mongoose.Schema({
     },
     cpf: {
         type: String,
+        required: true,
     },
     cep: {
         type: String,
+        required: true,
     },
     email: {
         type: String,

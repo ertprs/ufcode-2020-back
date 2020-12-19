@@ -13,9 +13,13 @@ router.post('/leads', async (req, res) => {
     }
 })
 
+// GET /leads?cpf=<user_id>
 router.get('/leads', async (req, res) => {
+    const { cpf } = req.query
+
     try {
-        const leads = await Lead.find()
+        const leads = await Lead.find({ cpf })
+
         res.status(200).send(leads)
     } catch (e) {
         res.status(400).send(e)
