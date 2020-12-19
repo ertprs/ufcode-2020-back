@@ -1,5 +1,9 @@
-const express = require('express')
-const Lead = require('../models/lead')
+import express from 'express'
+import Lead from '../models/lead'
+
+/**
+ * Local router to be used by the main router
+ */
 const router = new express.Router()
 
 router.post('/leads', async (req, res) => {
@@ -80,4 +84,4 @@ router.delete('/leads/:id', async (req, res) => {
     }
 })
 
-module.exports = router
+export default router

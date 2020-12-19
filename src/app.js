@@ -1,26 +1,25 @@
-const express = require('express')
-require('./db/mongoose')
-const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
-const loanRequestRouter = require('./routers/loan-request')
-const visitRouter = require('./routers/visit')
-const callRouter = require('./routers/call')
-const whatsappMessageRouter = require('./routers/whatsapp-message')
-const leadRouter = require('./routers/lead')
+import express from 'express'
+import userRouter from './routers/user'
+import taskRouter from './routers/task'
+import loanRequestRouter from './routers/loan-request'
+import visitRouter from './routers/visit'
+import callRouter from './routers/call'
+import whatsappMessageRouter from './routers/whatsapp-message'
+import leadRouter from './routers/lead'
 
-const app = express()
+const App = express()
 
-app.use(express.json())
+App.use(express.json())
 
 /**
  * Routers
  */
-app.use(userRouter)
-app.use(taskRouter)
-app.use(loanRequestRouter)
-app.use(visitRouter)
-app.use(callRouter)
-app.use(whatsappMessageRouter)
-app.use(leadRouter)
+App.use(userRouter)
+App.use(taskRouter)
+App.use(loanRequestRouter)
+App.use(visitRouter)
+App.use(callRouter)
+App.use(whatsappMessageRouter)
+App.use(leadRouter)
 
-module.exports = app
+export default App

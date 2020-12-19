@@ -1,7 +1,11 @@
-const express = require('express')
-const auth = require('../middleware/auth')
-const User = require('../models/user')
-const LoanRequest = require('../models/loan-request')
+import express from 'express'
+import User from '../models/user'
+import LoanRequest from '../models/loan-request'
+import auth from '../middleware/auth'
+
+/**
+ * Local router to be used by the main router
+ */
 const router = new express.Router()
 
 router.post('/loan-requests', async (req, res) => {
@@ -91,4 +95,4 @@ router.delete('/loan-requests/:id', auth, async (req, res) => {
     }
 })
 
-module.exports = router
+export default router

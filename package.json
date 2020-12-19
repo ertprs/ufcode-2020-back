@@ -1,8 +1,9 @@
 {
-  "name": "",
+  "name": "ufcode-2020-back",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd ./config/dev.env nodemon src/index.js",

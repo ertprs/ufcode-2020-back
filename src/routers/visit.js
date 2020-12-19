@@ -1,12 +1,14 @@
-const express = require('express')
-const auth = require('../middleware/auth')
-const Visit = require('../models/visit')
+import express from 'express'
+import auth from '../middleware/auth'
+import Visit from '../models/visit'
+
+/**
+ * Local router to be used by the main router
+ */
 const router = new express.Router()
 
 router.post('/visits', async (req, res) => {
-    const visit = new Visit({
-        ...req.body,
-    })
+    const visit = new Visit(req.body)
 
     try {
         await visit.save()
@@ -58,6 +60,7 @@ router.patch('/visits/:id', auth, async (req, res) => {
         const visit = await Visit.findOne({ _id: req.params.id})
 
         if (!visit) {
+            // If we didn't find anything, let's return a not found
             return res.status(404).send()
         }
 
@@ -74,6 +77,7 @@ router.delete('/visits/:id', auth, async (req, res) => {
         const visit = await Visit.findOneAndDelete({ _id: req.params.id })
 
         if (!visit) {
+            // If we didn't find anything, let's return a not found
             res.status(404).send()
         }
 
@@ -83,4 +87,4 @@ router.delete('/visits/:id', auth, async (req, res) => {
     }
 })
 
-module.exports = router
+export default router

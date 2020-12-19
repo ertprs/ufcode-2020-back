@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+import mongoose from 'mongoose'
+import validator from 'validator'
 
 const leadSchema = new mongoose.Schema({
     name: {
@@ -39,4 +39,4 @@ const leadSchema = new mongoose.Schema({
 
 const Lead = mongoose.model('Lead', leadSchema)
 
-module.exports = Lead
+export default Lead

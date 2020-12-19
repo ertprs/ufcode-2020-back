@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const callSchema = new mongoose.Schema({
     date: {
@@ -19,4 +19,4 @@ const callSchema = new mongoose.Schema({
 
 const Call = mongoose.model('Call', callSchema)
 
-module.exports = Call
+export default Call

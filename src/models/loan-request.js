@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const loanRequestSchema = new mongoose.Schema({
     owner: {
@@ -38,4 +38,4 @@ const loanRequestSchema = new mongoose.Schema({
 
 const LoanRequest = mongoose.model('LoanRequest', loanRequestSchema)
 
-module.exports = LoanRequest
+export default LoanRequest
