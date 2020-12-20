@@ -18,8 +18,20 @@ const loanRequestSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    valueInstallments: {
+    installmentValue: {
         type: Number,
+        required: true,
+    },
+    interestRate: {
+        type: Number,
+        required: true,
+    },
+    bankName:{
+        type: String,
+        required: true,
+    }, 
+    bankImage:{
+        type: String,
         required: true,
     },
     link: {
