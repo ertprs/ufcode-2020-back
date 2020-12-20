@@ -2,12 +2,20 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import Task from './task'
 
+/**
+ * Schema for the user. This represents someone that has either filled all the data for the loan request or someone
+ * that didn't finish and are leads. In the end of the form, they'll be asked a password to their account. After filling
+ * this, they're no longer a lead, but an user of our platform.
+ */
 const userSchema = new mongoose.Schema({
+    isLead: {
+        type: Boolean,
+        default: true
+    },
     name: {
         type: String,
-        required: true,
+        required: true
     },
     phone: {
         type: String,
@@ -15,14 +23,15 @@ const userSchema = new mongoose.Schema({
     },
     cpf: {
         type: String,
+        unique: true,
         required: true
     },
     cep: {
         type: String,
+        required: true
     },
     email: {
         type: String,
-        unique: true,
         required: true,
         trim: true,
         lowercase: true,
@@ -31,6 +40,10 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Email is invalid')
             }
         }
+    },
+    value: {
+        type: String,
+        required: true,
     },
     gender: {
         type: String,
@@ -67,47 +80,37 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     state: {
-        type: String,
+        type: String
     },
     number: {
         type: String,
-        required: true,
     },
     rg: {
-        type: String,
-        required: true,
+        type: String
     },
     rgOrgao: {
-        type: String,
-        required: true,
+        type: String
     },
     rgUF: {
-        type: String,
-        required: true,
+        type: String
     },
     rgData: {
-        type: String,
-        required: true,
+        type: String
     },
     bank: {
-        type: String,
-        required: true,
+        type: String
     },
     agency: {
-        type: String,
-        required: true,
+        type: String
     },
     income: {
-        type: String,
-        required: true,
+        type: String
     },
     margin: {
-        type: String,
-        required: true,
+        type: String
     },
     benefitType: {
-        type: String,
-        required: true,
+        type: String
     },
     tokens: [{
         token: {
@@ -140,8 +143,8 @@ userSchema.methods.generateAuthToken = async function () {
     return token
 }
 
-userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email })
+userSchema.statics.findByCredentials = async (cpf, password) => {
+    const user = await User.findOne({ cpf })
 
     if (!user) {
         throw new Error('Unable to login')
@@ -164,13 +167,6 @@ userSchema.pre('save', async function (next) {
         user.password = await bcrypt.hash(user.password, 8)
     }
 
-    next()
-})
-
-// Delete user tasks when user is removed
-userSchema.pre('remove', async function (next) {
-    const user = this
-    await Task.deleteMany({ owner: user._id })
     next()
 })
 

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd ./config/dev.env nodemon src/index.js",
+    "dev": "env-cmd ./config/dev.env nodemon --exec babel-node src/index.js",
     "test": "env-cmd ./config/test.env jest --watch --runInBand"
   },
   "jest": {
@@ -26,6 +26,10 @@
     "validator": "^10.9.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "env-cmd": "^8.0.2",
     "eslint": "^7.16.0",
     "jest": "^23.6.0",

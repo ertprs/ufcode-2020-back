@@ -1,5 +1,8 @@
 import mongoose from 'mongoose'
 
+/**
+ * Schema for the collection of whatsapp messages of our bot.
+ */
 const whatsappMessageSchema = new mongoose.Schema({
     id: {
         type: String,
