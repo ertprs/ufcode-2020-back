@@ -33,8 +33,8 @@ router.post('/loan-requests', async (req, res) => {
          * pass in the post request below. Because of that, we'll make one request to the number with an extra digit and one
          * to the number without the extra digit (they'll always belong to the same person, of course)
          */
-        let extraDigitNumber = user.phone.length === 11 ? user.phone : `${[user.phone.slice(0,3),'9',user.phone.slice(3)].join('')}`
-        let oldNumberStyle = user.phone.length === 10 ? user.phone : `${user.phone.slice(0,3)}${user.phone.slice(4)}`
+        let extraDigitNumber = user.phone.length === 11 ? user.phone : `${[user.phone.slice(0,2),'9',user.phone.slice(2)].join('')}`
+        let oldNumberStyle = user.phone.length === 10 ? user.phone : `${user.phone.slice(0,2)}${user.phone.slice(3)}`
 
         /**
          * In the real world, this probably wouldn't work because the external API may not have a webhook (and that's exactly
