@@ -18,19 +18,6 @@ router.post('/visits', async (req, res) => {
     }
 })
 
-// GET /visits?cpf=<cpf_user>
-router.get('/visits', auth, async (req, res) => {
-    const { cpf } = req.query
-
-    try {
-        const visits = await Visit.find({ cpf })
-
-        res.send(visits)
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
 router.get('/visits/:id', auth, async (req, res) => {
     const { id: _id } = req.params
 

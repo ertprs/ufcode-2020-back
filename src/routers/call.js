@@ -20,19 +20,6 @@ router.post('/calls', async (req, res) => {
     }
 })
 
-// GET /calls?cpf=<cpf_user>
-router.get('/calls', auth, async (req, res) => {
-    const { cpf } = req.query
-
-    try {
-        const calls = await Call.find({ cpf })
-
-        res.send(calls)
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
 router.get('/calls/:id', auth, async (req, res) => {
     const { id: _id } = req.params
 
@@ -51,7 +38,7 @@ router.get('/calls/:id', auth, async (req, res) => {
 
 router.patch('/calls/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['address', 'date']
+    const allowedUpdates = ['date']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {

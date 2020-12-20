@@ -1,5 +1,7 @@
 import express from 'express'
 import User from '../models/user'
+import Call from '../models/call'
+import Visit from '../models/visit'
 import auth from '../middleware/auth'
 
 /**
@@ -95,6 +97,33 @@ router.get('/users/check-cpf', async (req, res) => {
         res.status(200).send({ ok: Boolean(user) })
     } catch (e) {
         res.status(400).send(e)
+    }
+})
+
+/**
+ * Relationships
+ */
+router.get('/users/:id/calls', async (req, res) => {
+    const user_id = req.params.id
+
+    try {
+        const calls = await Call.find({ user: user_id })
+
+        res.send(calls)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.get('/users/:id/visits', async (req, res) => {
+    const user_id = req.params.id
+
+    try {
+        const visits = await Visit.find({ user: user_id })
+
+        res.send(visits)
+    } catch (e) {
+        res.status(500).send()
     }
 })
 
