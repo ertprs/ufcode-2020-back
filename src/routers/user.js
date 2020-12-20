@@ -87,12 +87,12 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 })
 
-// GET /users/check-cpf?id=<user_id>
+// GET /users/check-cpf?cpf=<cpf_user>
 router.get('/users/check-cpf', async (req, res) => {
-    const { id: _id } = req.query
+    const { cpf } = req.query
 
     try {
-        const user = await User.findOne({ _id })
+        const user = await User.findOne({ cpf })
 
         res.status(200).send({ ok: Boolean(user) })
     } catch (e) {
