@@ -85,4 +85,17 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 })
 
+// GET /users/check-cpf?id=<user_id>
+router.get('/users/check-cpf', async (req, res) => {
+    const { id: _id } = req.query
+
+    try {
+        const user = await User.findOne({ _id })
+
+        res.status(200).send({ ok: Boolean(user) })
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
 export default router
