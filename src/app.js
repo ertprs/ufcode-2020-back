@@ -10,19 +10,23 @@ import whatsappMessageRouter from './routers/whatsapp-message'
 
 import './db/mongoose'
 
-const App = express()
+const app = express()
 
-App.use(express.json())
-App.use(cors())
+app.use(express.json())
+
+/**
+ * Enable all cors requests
+ */
+app.use(cors())
 
 /**
  * Routers
  */
-App.use(userRouter)
-App.use(loanRequestRouter)
-App.use(visitRouter)
-App.use(callRouter)
-App.use(bankRouter)
-App.use(whatsappMessageRouter)
+app.use(userRouter)
+app.use(loanRequestRouter)
+app.use(visitRouter)
+app.use(callRouter)
+app.use(bankRouter)
+app.use(whatsappMessageRouter)
 
-export default App
+export default app
