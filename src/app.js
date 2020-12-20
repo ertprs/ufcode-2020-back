@@ -5,7 +5,7 @@ import visitRouter from './routers/visit'
 import callRouter from './routers/call'
 import whatsappMessageRouter from './routers/whatsapp-message'
 
-require('./db/mongoose')
+import './db/mongoose'
 
 const App = express()
 
