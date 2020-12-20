@@ -1,4 +1,6 @@
 import express from 'express'
+import cors from 'cors'
+
 import userRouter from './routers/user'
 import loanRequestRouter from './routers/loan-request'
 import visitRouter from './routers/visit'
@@ -11,6 +13,7 @@ import './db/mongoose'
 const App = express()
 
 App.use(express.json())
+App.use(cors())
 
 /**
  * Routers
