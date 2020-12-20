@@ -1,13 +1,17 @@
 import mongoose from 'mongoose'
 
 /**
- * Schema for the collection of calls. This represents the calls scheduled by an user.
+ * Schema for the collection of calls. This represents the calls scheduled by an user, which means their info
+ * will be filled by an employee (to finish the loan request).
  */
 const callSchema = new mongoose.Schema({
-    lead: {
+    user: {
+        /**
+         * The user who scheduled the call
+         */
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Lead'
+        ref: 'User'
     },
     date: {
         type: mongoose.Schema.Types.Date,

@@ -3,6 +3,7 @@ import userRouter from './routers/user'
 import loanRequestRouter from './routers/loan-request'
 import visitRouter from './routers/visit'
 import callRouter from './routers/call'
+import bankRouter from './routers/bank'
 import whatsappMessageRouter from './routers/whatsapp-message'
 
 import './db/mongoose'
@@ -18,6 +19,7 @@ App.use(userRouter)
 App.use(loanRequestRouter)
 App.use(visitRouter)
 App.use(callRouter)
+App.use(bankRouter)
 App.use(whatsappMessageRouter)
 
 export default App

@@ -18,7 +18,7 @@ router.post('/visits', async (req, res) => {
     }
 })
 
-// GET /visits?cpf=<user_id>
+// GET /visits?cpf=<cpf_user>
 router.get('/visits', auth, async (req, res) => {
     const { cpf } = req.query
 
@@ -49,7 +49,7 @@ router.get('/visits/:id', auth, async (req, res) => {
 
 router.patch('/visits/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['address', 'date']
+    const allowedUpdates = ['store', 'date']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {

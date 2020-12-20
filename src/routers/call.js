@@ -20,7 +20,7 @@ router.post('/calls', async (req, res) => {
     }
 })
 
-// GET /calls?cpf=<user_id>
+// GET /calls?cpf=<cpf_user>
 router.get('/calls', auth, async (req, res) => {
     const { cpf } = req.query
 
