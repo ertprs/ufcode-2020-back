@@ -24,15 +24,19 @@ router.post('/users', async (req, res) => {
 })
 
 router.patch('/users/:id', async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id)
     for (var propName in req.body) {
-        user[propName] = req.body[propName];
+        user[propName] = req.body[propName]
     }
-    user.isLead = false;
+
+    /* The frontend will make one request to us. If this request is made, then the user is not a lead anymore, they've filled the
+    whole form */
+    user.isLead = false
+
     try {
         await user.save()
-        const token = await user.generateAuthToken();
-        res.status(201).send({user: user, token: token})
+        const token = await user.generateAuthToken()
+        res.status(200).send({user: user, token: token})
     } catch (e) {
         res.status(400).send(e)
     }
@@ -44,7 +48,6 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken()
         res.send({ user, token })
     } catch (e) {
-        console.log(e);
         res.status(400).send()
     }
 })
@@ -109,8 +112,9 @@ router.get('/users/check-cpf', async (req, res) => {
 
     try {
         const user = await User.findOne({ cpf })
+        const isLead = (user || {}).isLead
 
-        res.status(200).send({ ok: Boolean(user) })
+        res.status(200).send({ ok: Boolean(user), isLead })
     } catch (e) {
         res.status(400).send(e)
     }

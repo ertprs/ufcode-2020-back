@@ -2,11 +2,13 @@ import express from 'express'
 import User from '../models/user'
 import LoanRequest from '../models/loan-request'
 import auth from '../middleware/auth'
+import axios from 'axios'
 
 /**
  * Local router to be used by the main router
  */
 const router = new express.Router()
+const FAKE_WEBHOOK_URL = 'https://ufcode2020zap.herokuapp.com/v2/channels/whatsapp/messages'
 
 router.post('/loan-requests', async (req, res) => {
     const loanRequest = new LoanRequest({
@@ -22,6 +24,22 @@ router.post('/loan-requests', async (req, res) => {
         }
 
         await loanRequest.save()
+
+        /**
+         * In the real world, this probably wouldn't work because the external API may not have a webhook (and that's exactly
+         * what we're simulating here). We would have to create a polling.
+         */
+        await axios.post(FAKE_WEBHOOK_URL, {
+            'from': '',
+            'to': user.phone,
+            'contents': [
+                {
+                'type': 'text',
+                'text': `Olá, *${user.name}*!\n\nRecebemos sua solicitação de empréstimo 💰\n\nSeu pedido de número *${loanRequest._id.toString().slice(0,10)}* está sendo analisado, em breve retornaremos com notícias sobre seu status.\n\nObrigado por comprar com a Empresta!`
+                }
+            ]
+        })
+
         res.status(200).send(loanRequest)
     } catch (e) {
         res.status(400).send(e)
