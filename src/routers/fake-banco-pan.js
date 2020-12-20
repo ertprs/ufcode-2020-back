@@ -1,4 +1,5 @@
 import express from 'express'
+import User from '../models/user'
 import FakeBancoPan from '../models/fake-banco-pan'
 import axios from 'axios'
 
@@ -75,7 +76,13 @@ router.post('/fake-banco-pan/emprestimos/propostas/change-status', async (req, r
         const loan = await FakeBancoPan.findOne({ cpf, loanRequestNumber })
         loan.status = status
 
+        /**
+         * We need to get the data of the user whose cpf matches the one passed here, to send him a message if the status of the loan changes.
+         */
+        const user = await User.findOne({ cpf })
+
         const updated = await loan.save()
+
         let statusMessage
         
         switch(loan.status) {
@@ -96,7 +103,7 @@ router.post('/fake-banco-pan/emprestimos/propostas/change-status', async (req, r
          */
         await axios.post(FAKE_WEBHOOK_URL, {
             'from': '',
-            'to': '3191839587',
+            'to': user.phone,
             'contents': [
                 {
                 'type': 'text',
