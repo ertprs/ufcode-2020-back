@@ -33,7 +33,7 @@ router.get('/loan-requests', auth, async (req, res) => {
     const { owner } = req.query
 
     try {
-        const loanRequests = await LoanRequest.find({ owner })
+        const loanRequests = await LoanRequest.find({ owner }).sort({createdAt: -1})
 
         res.send(loanRequests)
     } catch (e) {
